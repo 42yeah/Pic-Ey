@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block main %}
+<form enctype="multipart/form-data" method="POST" action="/upload/">
+    <fieldset>
+        <legend>{{ usr }}，选择一个图片来上传</legend>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    文件名
+                </div>
+                <input class="form-control" type="text" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input class="form-control" type="file" name="f">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <textarea class="form-control" type="text" name="desc" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success form-control">提交</button>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

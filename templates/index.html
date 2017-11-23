@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>
+            Pic-ey
+        </title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap-lumen.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'css/pad.css' %}" type="text/css"/>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark navbar-expand fixed-top bg-primary">
+            <a href="/" class="navbar-brand">Pic-Ey 图片分享</a>
+        </nav>
+
+        <main class="container pad">
+            {% block main %}
+            
+            {% endblock  %}
+        </main>
+
+        <footer class="container">
+            <br /><br /><hr />
+            &copy; Copyright 2017 42yeah
+        </footer>
+    </body>
+</html>

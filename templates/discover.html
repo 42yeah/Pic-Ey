@@ -1,0 +1,96 @@
+{% extends "index.html" %}
+
+{% block main %}
+{% if not logged_in_as %}
+<div class="form-group form-control container">
+    <span class="form-control-plaintext">
+        发表发现需要 <a href="/auth/" class="btn btn-outline-warning btn-sm">登录</a>
+    </span>
+</div>
+{% else %}
+<div class="container">
+    <div class="float-left">
+        <h2>
+            {{ logged_in_as }}
+        </h2>
+    </div>
+    <div class="float-right">
+        <ul class="pagination">
+            <li class="page-item"><a href="/users/{{ logged_in_as }}" class="page-link">查看资料</a></li>
+            <li class="page-item"><a href="/settings/" class="page-link">账户设置</a></li>
+            <li class="page-item"><a href="/new/" class="page-link">提交发现</a></li>
+            <li class="page-item"><a href='/logout/' class="page-link bg-danger" style="color: white;">登出</a></li>
+        </ul>
+        
+    </div>
+</div>
+&nbsp;
+{% endif %}
+{% if logged_in_as %}
+<form>
+    <fieldset>
+        <div class="form-group">
+            
+        </div>
+    </fieldset>
+</form>
+{% endif %}
+<hr />
+<h3>{{ c.name }}</h1>
+<img src="{{ c.f.url }}" width="512px" height="256px"></img>
+<br /><br />
+<h4>作者</h4>
+<p><a href="users/{{ c.author }}">{{ c.author }}</a></p>
+<h4>介绍</h4>
+{% ifequal c.desc "" %}
+<p class="text-muted">
+    没有介绍
+</p>
+{% else %}
+<p>
+    {{ c.desc|linebreaks }}
+</p>
+{% endifequal %}
+<h4>永久链接</h4>
+<input class="form-control" placeholder="没有永久链接..." readonly value="{{ host }}">
+<p></p>
+<h4>评论</h4>
+<ul class="list-group">
+    {% if not comments %}
+    <li class="list-group-item text-muted">
+        好像还没有人评论
+    </li>
+    {% endif %}
+    <p></p>
+    {% for co in comments %}
+    <li class="list-group-item">
+        <h5><a href="/users/{{ co.author }}">{{ co.author }}</a></h5>
+        {{ co.comment|linebreaks }}    
+    </li>
+    {% endfor %}
+</ul>
+
+{% if logged_in_as %}
+<p></p>
+<form method="POST" action="/perma/{{ i }}">
+    <fieldset>
+        <input type="text" class="sr-only" name="i" value="{{ i }}">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    评论
+                </div>
+                <input type="text" class="form-control" name="comment" placeholder="作为 {{ logged_in_as }}">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-sm form-control">提交评论</button>
+        </div>
+
+    </fieldset>
+</form>
+{% endif %}
+<br />
+<a href="/discover/" class="btn btn-success float-right">下一个</a>
+{% endblock %}

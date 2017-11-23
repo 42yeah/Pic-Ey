@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block main %}
+<h1>用户：{{ q.username }}</h1>
+<hr />
+<h2>个人介绍</h2>
+<textarea readonly class="form-control" rows="5">
+{{ q.desc }}
+</textarea>
+{% endblock %}

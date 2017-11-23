@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+
+{% block main %}
+{% if not success %}
+{% if logged_in_as %}
+<div class="alert alert-danger">
+    注意：你已经登录作 {{ logged_in_as }} 了。<br />
+    进行其他的登陆动作会登出这个账号。
+</div>
+{% endif %}
+<form action="/auth/" method="POST">
+    <fieldset>
+        <legend>填写登录表单</legend>
+        <div class="form-group form-inline">
+            <div class="input-group">
+                <div class="input-group-addon">用户名</div>
+                <input class="form-control" type="text" name="usr">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <div class="input-group">
+                    <div class="input-group-addon">密码</div>
+                    <input class="form-control" type="password" name="pwd">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <button type="submit" class="btn btn-success form-control">登录</button>
+        </div>
+        <p class="text-muted">如果账号不存在会给你注册</p>
+    </fieldset>
+</form>
+{% else %}
+{% ifequal success True %}
+<h1>登录成功！</h1>
+<p>
+    这台电脑的曲奇已经被我们再次烘烤了一下，<br />
+    我们现在不会忘记你啦！
+</p>
+{% else %}
+<h1>登录失败！</h1>
+<p>
+    也许是你在尝试注册一个已经被注册的账号，<br />
+    或者是你忘记了你的密码，<br />
+    或者是你在尝试乱输，<br />
+    反正我能告诉你的就是这个帐号存在，但你的密码不对！
+</p>
+{% endifequal %}
+{% endif %}
+{% if success %}
+<a href="/discover/" class="btn btn-success float-right">开始探索！</a>
+{% endif %}
+{% endblock  %}

@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block main %}
+{% if msuccess %}
+<div class="alert alert-success">
+    <h2>成功</h2>
+    你的设置已经保存。
+</div>
+{% endif %}
+<form method="POST" action="#">
+    <fieldset>
+        <legend>账户设置：{{ c.username }}</legend>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    账号
+                </div>
+                <input type="text" class="form-control" name="usr" readonly value="{{ c.username }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    密码
+                </div>
+                <input type="password" class="form-control" name="pwd" value="{{ c.password }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" type="text" name="desc" rows="5">{{ c.desc }}</textarea>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>杂项设置</legend>
+                <label class="btn btn-success">
+                    <input type="checkbox" name="rtd" {% ifequal c.settings_to_discover True %}checked{% endifequal %}>
+                    跳转 index 页为探索页
+                </label>
+                <label class="btn btn-warning">
+                    <input type="checkbox" name="priv" {% ifequal c.settings_priv True %}checked{% endifequal %}>
+                    设置资料为隐私
+                </label>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">修改</button>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
